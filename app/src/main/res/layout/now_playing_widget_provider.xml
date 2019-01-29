@@ -27,9 +27,11 @@
         android:textColor="#ffffff"
         android:textSize="34sp" />
 
+    <!--TODO try AdapterViewFlipper-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:gravity="center">
 
         <ImageButton
