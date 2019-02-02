@@ -5,7 +5,7 @@ package com.example.android.halfside.models;
  */
 public class PerformingArtist {
 
-    private String name;
+    private String artistName;
     private String description;
 
     /* Represents the first day (1) or the second day(2) etc, of the festival */
@@ -20,7 +20,7 @@ public class PerformingArtist {
     private ArtistUrls artistUrls;
 
     public PerformingArtist(String name, String description, int dayOfPerforming, String timeOfPerforming, int stagePerforming, ArtistUrls artistUrls) {
-        this.name = name;
+        this.artistName = name;
         this.description = description;
         this.dayOfPerforming = dayOfPerforming;
         this.timeOfPerforming = timeOfPerforming;
@@ -28,12 +28,12 @@ public class PerformingArtist {
         this.artistUrls = artistUrls;
     }
 
-    public String getName() {
-        return name;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     public String getDescription() {
