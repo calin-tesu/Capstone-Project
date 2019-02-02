@@ -13,13 +13,34 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.halfside.models.ArtistUrls;
+import com.example.android.halfside.models.PerformingArtist;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Firebase instance variables
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference artistsDatabaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        artistsDatabaseReference = firebaseDatabase.getReference("artists");
+
+        //Testing POJO for writing an entry to firebase
+        ArtistUrls artistUrls = new ArtistUrls("fire", "web", "face", null);
+        PerformingArtist performingArtist =
+                new PerformingArtist("Bug", "bla bla", 1, "21:00", 2, artistUrls);
+
+        artistsDatabaseReference.push().setValue(performingArtist);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
