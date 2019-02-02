@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         PerformingArtist performingArtist =
                 new PerformingArtist("Bug", "bla bla", 1, "21:00", 2, artistUrls);
 
-        artistsDatabaseReference.push().setValue(performingArtist);
+//        artistsDatabaseReference.push().setValue(performingArtist);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
