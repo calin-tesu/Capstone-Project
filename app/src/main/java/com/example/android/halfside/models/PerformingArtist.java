@@ -8,13 +8,15 @@ public class PerformingArtist {
     private String name;
     private String description;
 
-    //Represents the first day (1) or the second day(2) etc, of the festival
+    /* Represents the first day (1) or the second day(2) etc, of the festival */
     private int dayOfPerforming;
 
-    //Time format HH:mm
+    /* Time format HH:mm */
     private String timeOfPerforming;
 
     private int stagePerforming;
+
+    /* Urls of artist web page, Facebook, YouTube etc. */
     private ArtistUrls artistUrls;
 
     public PerformingArtist(String name, String description, int dayOfPerforming, String timeOfPerforming, int stagePerforming, ArtistUrls artistUrls) {
