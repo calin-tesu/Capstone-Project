@@ -2,9 +2,8 @@ package com.example.android.halfside;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,11 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,19 +28,18 @@ public class MainActivity extends AppCompatActivity
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference artistsDatabaseReference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize Firebase components
         firebaseDatabase = FirebaseDatabase.getInstance();
         artistsDatabaseReference = firebaseDatabase.getReference("artists");
 
-        //Testing POJO for writing an entry to firebase
-        ArtistUrls artistUrls = new ArtistUrls("fire", "web", "face", null);
-        PerformingArtist performingArtist =
-                new PerformingArtist("Bug", "bla bla", 1, "21:00", 2, artistUrls);
+        List<PerformingArtist> performingArtistList = new ArrayList<>();
+        performingArtistList = generateArtistsList();
+
 
 //        artistsDatabaseReference.push().setValue(performingArtist);
 
@@ -118,5 +120,57 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /*
+    * Helper method to generate a list of 18 artists (3 days * 6 artists per day)
+    */
+    private List<PerformingArtist> generateArtistsList() {
+        List<PerformingArtist> performingArtistList = new ArrayList<>();
+
+        PerformingArtist currentArtist = null;
+
+        //All artists will use the same urls
+        ArtistUrls artistUrls = new ArtistUrls(null,
+                "https://www.bugmafiaoficial.ro/",
+                "https://www.facebook.com/bugmafia/",
+                "https://www.youtube.com/channel/UCJvN0Z19jneaLfztVoO0ZGg");
+
+        for (int day = 1; day <= 3; day++) {
+            //Performing start hour for every day
+            int timeOfPerforming = 16;
+
+            for (int i = 1; i <= 6; i++) {
+                currentArtist.setArtistName("Artist " + String.valueOf(day * i));
+                currentArtist.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
+                        "voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint " +
+                        "occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                currentArtist.setDayOfPerforming(day);
+
+                //Every artist will perform for 1 hour
+                timeOfPerforming = timeOfPerforming + i;
+                currentArtist.setTimeOfPerforming(String.valueOf(timeOfPerforming) + ":00");
+
+                /**
+                 *   For simplification the show will be held like:
+                 *   Day 1 - Stage 1
+                 *   Day 2 - Stage 2 etc..
+                 */
+                currentArtist.setStagePerforming(day);
+
+                /**
+                 *  For simplification all artists will have the same
+                 *  photo, facebook, web page & Youtube account
+                 */
+                currentArtist.setArtistUrls(artistUrls);
+
+                performingArtistList.add(currentArtist);
+            }
+        }
+
+        return performingArtistList;
     }
 }
