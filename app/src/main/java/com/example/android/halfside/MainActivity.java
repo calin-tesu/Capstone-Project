@@ -17,6 +17,8 @@ import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference artistsDatabaseReference;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference artistPhotoStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +39,17 @@ public class MainActivity extends AppCompatActivity
 
         //Initialize Firebase components
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
         artistsDatabaseReference = firebaseDatabase.getReference("artists");
+        artistPhotoStorageReference = firebaseStorage.getReference("artists_photo");
 
-        List<PerformingArtist> performingArtistList = new ArrayList<>();
+        List<PerformingArtist> performingArtistList;
+        /*
+        * Generate a random list of artists and push them to Firebase dataabase
+        * Should be commented out after first use
+        **/
         performingArtistList = generateArtistsList();
-
-
-//        artistsDatabaseReference.push().setValue(performingArtist);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -128,20 +136,23 @@ public class MainActivity extends AppCompatActivity
     private List<PerformingArtist> generateArtistsList() {
         List<PerformingArtist> performingArtistList = new ArrayList<>();
 
-        PerformingArtist currentArtist = null;
+        PerformingArtist currentArtist = new PerformingArtist();
 
         //All artists will use the same urls
-        ArtistUrls artistUrls = new ArtistUrls(null,
+        ArtistUrls artistUrls = new ArtistUrls(
+                "generic_photo",
                 "https://www.bugmafiaoficial.ro/",
                 "https://www.facebook.com/bugmafia/",
                 "https://www.youtube.com/channel/UCJvN0Z19jneaLfztVoO0ZGg");
+
+        int counterArtist = 0;
 
         for (int day = 1; day <= 3; day++) {
             //Performing start hour for every day
             int timeOfPerforming = 16;
 
             for (int i = 1; i <= 6; i++) {
-                currentArtist.setArtistName("Artist " + String.valueOf(day * i));
+                currentArtist.setArtistName("Artist " + String.valueOf(counterArtist++));
                 currentArtist.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                         "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
                         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
@@ -151,8 +162,8 @@ public class MainActivity extends AppCompatActivity
                 currentArtist.setDayOfPerforming(day);
 
                 //Every artist will perform for 1 hour
-                timeOfPerforming = timeOfPerforming + i;
                 currentArtist.setTimeOfPerforming(String.valueOf(timeOfPerforming) + ":00");
+                timeOfPerforming = timeOfPerforming + 1;
 
                 /**
                  *   For simplification the show will be held like:
@@ -168,6 +179,9 @@ public class MainActivity extends AppCompatActivity
                 currentArtist.setArtistUrls(artistUrls);
 
                 performingArtistList.add(currentArtist);
+
+                //Save the artist to Firebase realtime database
+                artistsDatabaseReference.push().setValue(currentArtist);
             }
         }
 
