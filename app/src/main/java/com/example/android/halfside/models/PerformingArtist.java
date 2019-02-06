@@ -19,6 +19,9 @@ public class PerformingArtist {
     /* Urls of artist web page, Facebook, YouTube etc. */
     private ArtistUrls artistUrls;
 
+    public PerformingArtist() {
+    }
+
     public PerformingArtist(String name, String description, int dayOfPerforming, String timeOfPerforming, int stagePerforming, ArtistUrls artistUrls) {
         this.artistName = name;
         this.description = description;

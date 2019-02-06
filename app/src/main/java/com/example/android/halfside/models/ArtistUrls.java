@@ -10,6 +10,9 @@ public class ArtistUrls {
     private String facebookUrl;
     private String youtubeUrl;
 
+    public ArtistUrls() {
+    }
+
     public ArtistUrls(String photoFirebaseUrl, String webUrl, String facebookUrl, String youtubeUrl) {
         this.photoFirebaseUrl = photoFirebaseUrl;
         this.webUrl = webUrl;
