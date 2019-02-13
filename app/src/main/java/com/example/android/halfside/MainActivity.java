@@ -9,12 +9,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.android.halfside.Adapters.LineupAdapter;
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DataSnapshot;
@@ -31,16 +33,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    List<PerformingArtist> performingArtistList;
+
     // Firebase instance variables
     private FirebaseDatabase artistsFirebaseDatabase;
     private DatabaseReference artistsDatabaseReference;
     private FirebaseStorage artistsPhotoFirebaseStorage;
+    //private ValueEventListener lineupListener;
     private StorageReference artistPhotoStorageReference;
-    private ValueEventListener lineupListener;
-
     private RecyclerView lineupRecyclerView;
-
-    private List<PerformingArtist> performingArtistList = new ArrayList<>();
+    private GridLayoutManager layoutManager;
+    private LineupAdapter lineupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +59,37 @@ public class MainActivity extends AppCompatActivity
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
         artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
-        //Add value event listener to the performing artists lineup list
-        lineupListener = new ValueEventListener() {
+        artistsDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapshot: dataSnapshot.getChildren() ) {
-                    PerformingArtist currentArtist = dataSnapshot.getValue(PerformingArtist.class);
-                    performingArtistList.add(currentArtist);
+                performingArtistList = new ArrayList<>();
+
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    PerformingArtist artist = childSnapshot.getValue(PerformingArtist.class);
+                    performingArtistList.add(artist);
                 }
+
+                lineupAdapter = new LineupAdapter(performingArtistList);
+                lineupRecyclerView.setAdapter(lineupAdapter);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        };
-        artistsDatabaseReference.addValueEventListener(lineupListener);
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         /*
-         * Generate a random list of artists and push them to Firebase dataabase
+         * Generate a random list of artists and push them to Firebase database
          * Should be commented out after first use
          * TODO DELETE this method
          **/
         //performingArtistList = generateArtistsList();
+
+        layoutManager = new GridLayoutManager(this, 2);
+
+        lineupRecyclerView.setHasFixedSize(true);
+        lineupRecyclerView.setLayoutManager(layoutManager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,19 +112,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        // Remove performing artists lineup value event listener
-        if (lineupListener != null) {
-            artistsDatabaseReference.removeEventListener(lineupListener);
-        }
-
-        // Clean up comments listener
-        //mAdapter.cleanupListener();
     }
 
     @Override
@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     /*
      * Helper method to generate a list of 18 artists (3 days * 6 artists per day)
      * TODO DELETE this method
@@ -225,10 +224,9 @@ public class MainActivity extends AppCompatActivity
                 performingArtistList.add(currentArtist);
 
                 //Save the artist to Firebase realtime database
-                artistsDatabaseReference.push().setValue(currentArtist);
+                //artistsDatabaseReference.push().setValue(currentArtist);
             }
         }
-
         return performingArtistList;
     }
 }
