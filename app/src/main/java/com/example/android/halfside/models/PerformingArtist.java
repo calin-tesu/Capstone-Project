@@ -22,8 +22,8 @@ public class PerformingArtist {
     public PerformingArtist() {
     }
 
-    public PerformingArtist(String name, String description, int dayOfPerforming, String timeOfPerforming, int stagePerforming, ArtistUrls artistUrls) {
-        this.artistName = name;
+    public PerformingArtist(String artistName, String description, int dayOfPerforming, String timeOfPerforming, int stagePerforming, ArtistUrls artistUrls) {
+        this.artistName = artistName;
         this.description = description;
         this.dayOfPerforming = dayOfPerforming;
         this.timeOfPerforming = timeOfPerforming;
