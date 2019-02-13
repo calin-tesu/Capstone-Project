@@ -1,4 +1,4 @@
-package com.example.android.halfside;
+package com.example.android.halfside.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.android.halfside.Adapters.LineupAdapter;
+import com.example.android.halfside.R;
+import com.example.android.halfside.adapters.LineupAdapter;
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DataSnapshot;
