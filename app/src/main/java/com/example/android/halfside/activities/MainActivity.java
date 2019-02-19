@@ -1,32 +1,24 @@
 package com.example.android.halfside.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android.halfside.R;
-import com.example.android.halfside.adapters.LineupAdapter;
+import com.example.android.halfside.fragments.LineupFragment;
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,51 +26,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    List<PerformingArtist> performingArtistList;
-
-    // Firebase instance variables
-    private FirebaseDatabase artistsFirebaseDatabase;
-    private DatabaseReference artistsDatabaseReference;
-    private FirebaseStorage artistsPhotoFirebaseStorage;
-    //private ValueEventListener lineupListener;
-    private StorageReference artistPhotoStorageReference;
-    private RecyclerView lineupRecyclerView;
-    private GridLayoutManager layoutManager;
-    private LineupAdapter lineupAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        lineupRecyclerView = findViewById(R.id.lineup_rv);
-
-        //Initialize Firebase components
-        artistsFirebaseDatabase = FirebaseDatabase.getInstance();
-        artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
-
-        artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
-        artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
-
-        artistsDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                performingArtistList = new ArrayList<>();
-
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    PerformingArtist artist = childSnapshot.getValue(PerformingArtist.class);
-                    performingArtistList.add(artist);
-                }
-
-                lineupAdapter = new LineupAdapter(performingArtistList);
-                lineupRecyclerView.setAdapter(lineupAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         /*
          * Generate a random list of artists and push them to Firebase database
@@ -86,11 +37,6 @@ public class MainActivity extends AppCompatActivity
          * TODO DELETE this method
          **/
         //performingArtistList = generateArtistsList();
-
-        layoutManager = new GridLayoutManager(this, 2);
-
-        lineupRecyclerView.setHasFixedSize(true);
-        lineupRecyclerView.setLayoutManager(layoutManager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,6 +58,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        displaySelectedFragment(new LineupFragment());
 
     }
 
@@ -153,8 +101,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment = null;
+
         if (id == R.id.nav_lineup) {
-            // Handle the camera action
+            fragment = new LineupFragment();
+            displaySelectedFragment(fragment);
+
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_food_drinks) {
@@ -170,6 +122,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Loads the specified fragment to the frame
+     *
+     * @param fragment
+     */
+    private void displaySelectedFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
     }
 
 
