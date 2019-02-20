@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.example.android.halfside.R;
 import com.example.android.halfside.fragments.LineupFragment;
+import com.example.android.halfside.fragments.ScheduleFragment;
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
 
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity
             displaySelectedFragment(fragment);
 
         } else if (id == R.id.nav_schedule) {
+            fragment = new ScheduleFragment();
+            displaySelectedFragment(fragment);
 
         } else if (id == R.id.nav_food_drinks) {
 
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity
     private void displaySelectedFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

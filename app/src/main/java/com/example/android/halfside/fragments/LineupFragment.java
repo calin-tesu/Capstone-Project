@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.halfside.R;
-import com.example.android.halfside.adapters.LineupAdapter;
+import com.example.android.halfside.adapters.LineupRecyclerViewAdapter;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +39,7 @@ public class LineupFragment extends Fragment {
 
     private RecyclerView lineupRecyclerView;
     private GridLayoutManager layoutManager;
-    private LineupAdapter lineupAdapter;
+    private LineupRecyclerViewAdapter lineupAdapter;
 
 
     public LineupFragment() {
@@ -71,7 +71,7 @@ public class LineupFragment extends Fragment {
                     performingArtistList.add(artist);
                 }
 
-                lineupAdapter = new LineupAdapter(performingArtistList);
+                lineupAdapter = new LineupRecyclerViewAdapter(performingArtistList);
                 lineupRecyclerView.setAdapter(lineupAdapter);
             }
 

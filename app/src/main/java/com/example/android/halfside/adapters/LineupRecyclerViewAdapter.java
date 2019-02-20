@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by Calin Tesu on 2/11/2019.
  */
-public class LineupAdapter extends RecyclerView.Adapter<LineupAdapter.LineupViewHolder> {
+public class LineupRecyclerViewAdapter extends RecyclerView.Adapter<LineupRecyclerViewAdapter.LineupViewHolder> {
 
     // Cached copy of performing artists
     private List<PerformingArtist> performingArtistList;
@@ -28,7 +28,7 @@ public class LineupAdapter extends RecyclerView.Adapter<LineupAdapter.LineupView
     private Context context;
 
     // Provide a suitable constructor
-    public LineupAdapter(List<PerformingArtist> artists) {
+    public LineupRecyclerViewAdapter(List<PerformingArtist> artists) {
         performingArtistList = artists;
     }
 
