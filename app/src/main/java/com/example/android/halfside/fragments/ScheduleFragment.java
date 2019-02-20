@@ -4,6 +4,7 @@ package com.example.android.halfside.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,11 +20,11 @@ import com.example.android.halfside.R;
 public class ScheduleFragment extends Fragment {
 
     private TextView dayOfGig;
+    private TextView stageOfGig;
 
     public ScheduleFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +33,29 @@ public class ScheduleFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         dayOfGig = rootView.findViewById(R.id.day_of_gig);
+        dayOfGig.setText("Day 1");
+        stageOfGig = rootView.findViewById(R.id.stage_of_gig);
 
+        //Top navigation for stages of the festival
+        final TabLayout tabLayout = rootView.findViewById(R.id.top_sliding_tabs);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                stageOfGig.setText("STAGE " + String.valueOf(tabLayout.getSelectedTabPosition() + 1));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                stageOfGig.setText("STAGE " + String.valueOf(tabLayout.getSelectedTabPosition() + 1));
+            }
+        });
+
+        //Bottom navigation for day of the festival
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

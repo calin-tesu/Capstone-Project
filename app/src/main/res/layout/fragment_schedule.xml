@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ScheduleFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/top_sliding_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STAGE 1"/>
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STAGE 2"/>
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STAGE 3"/>
+
+    </android.support.design.widget.TabLayout>
+
+    <TextView
+        android:id="@+id/stage_of_gig"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        tools:text="Stage 1" />
 
     <TextView
         android:id="@+id/day_of_gig"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
         android:gravity="center"
         tools:text="Day 1" />
 
@@ -18,9 +51,8 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
         app:itemTextColor="@android:color/white"
         app:menu="@menu/activity_schedule_bottom_navigation"/>
 
-</RelativeLayout>
+</LinearLayout>
