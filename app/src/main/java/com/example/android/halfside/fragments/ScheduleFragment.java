@@ -6,21 +6,21 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.android.halfside.R;
+import com.example.android.halfside.adapters.ScheduleViewPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
 
-    private TextView dayOfGig;
-    private TextView stageOfGig;
+    private int day;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -32,45 +32,36 @@ public class ScheduleFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        dayOfGig = rootView.findViewById(R.id.day_of_gig);
-        dayOfGig.setText("Day 1");
-        stageOfGig = rootView.findViewById(R.id.stage_of_gig);
+        final ViewPager viewPager = rootView.findViewById(R.id.schedule_view_pager);
+        //viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), 1));
 
         //Top navigation for stages of the festival
         final TabLayout tabLayout = rootView.findViewById(R.id.top_sliding_tabs);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                stageOfGig.setText("STAGE " + String.valueOf(tabLayout.getSelectedTabPosition() + 1));
-            }
+        tabLayout.setupWithViewPager(viewPager);
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                stageOfGig.setText("STAGE " + String.valueOf(tabLayout.getSelectedTabPosition() + 1));
-            }
-        });
 
         //Bottom navigation for day of the festival
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.day_1);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.day_1:
-                                dayOfGig.setText("Day 1");
-                                break;
+                                day = 1;
+                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
+                                return true;
                             case R.id.day_2:
-                                dayOfGig.setText("Day 2");
-                                break;
+                                day = 2;
+                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
+                                return true;
                             case R.id.day_3:
-                                dayOfGig.setText("Day 3");
-                                break;
+                                day = 3;
+                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
+                                return true;
                         }
 
                         return false;

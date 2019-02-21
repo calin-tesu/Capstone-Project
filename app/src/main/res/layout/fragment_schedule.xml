@@ -10,7 +10,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/top_sliding_tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:tabTextColor="@android:color/black">
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
@@ -29,28 +31,17 @@
 
     </android.support.design.widget.TabLayout>
 
-    <TextView
-        android:id="@+id/stage_of_gig"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/schedule_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center"
-        tools:text="Stage 1" />
-
-    <TextView
-        android:id="@+id/day_of_gig"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center"
-        tools:text="Day 1" />
+        android:layout_weight="1"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/colorPrimaryDark"
         app:itemTextColor="@android:color/white"
         app:menu="@menu/activity_schedule_bottom_navigation"/>
