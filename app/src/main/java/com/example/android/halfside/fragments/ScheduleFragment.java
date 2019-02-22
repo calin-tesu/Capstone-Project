@@ -2,13 +2,10 @@ package com.example.android.halfside.fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,8 +17,6 @@ import com.example.android.halfside.adapters.ScheduleViewPagerAdapter;
  */
 public class ScheduleFragment extends Fragment {
 
-    private int day;
-
     public ScheduleFragment() {
         // Required empty public constructor
     }
@@ -32,45 +27,16 @@ public class ScheduleFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        final ViewPager viewPager = rootView.findViewById(R.id.schedule_view_pager);
-        //viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), 1));
+        ViewPager viewPager = rootView.findViewById(R.id.schedule_view_pager);
+        viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext()));
 
         //Top navigation for stages of the festival
-        final TabLayout tabLayout = rootView.findViewById(R.id.top_sliding_tabs);
+        TabLayout tabLayout = rootView.findViewById(R.id.top_sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-
-
-        //Bottom navigation for day of the festival
-        BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.day_1);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.day_1:
-                                day = 1;
-                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
-                                return true;
-                            case R.id.day_2:
-                                day = 2;
-                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
-                                return true;
-                            case R.id.day_3:
-                                day = 3;
-                                viewPager.setAdapter(new ScheduleViewPagerAdapter(getContext(), day));
-                                return true;
-                        }
-
-                        return false;
-                    }
-                }
-        );
 
         // Inflate the layout for this fragment
         return rootView;
     }
-
 }
+
+
