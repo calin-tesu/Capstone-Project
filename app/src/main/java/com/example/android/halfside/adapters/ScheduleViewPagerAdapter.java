@@ -3,10 +3,8 @@ package com.example.android.halfside.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,10 +25,9 @@ public class ScheduleViewPagerAdapter extends PagerAdapter {
     private TextView stageOfGig;
     private TextView dayOfGig;
 
-    private BottomNavigationView bottomNavigationView;
-
-    public ScheduleViewPagerAdapter(Context context) {
+    public ScheduleViewPagerAdapter(Context context, int day) {
         this.context = context;
+        this.day = day;
     }
 
     @Nullable
@@ -61,35 +58,7 @@ public class ScheduleViewPagerAdapter extends PagerAdapter {
         stageOfGig = viewGroup.findViewById(R.id.stage_of_gig);
         dayOfGig = viewGroup.findViewById(R.id.day_of_gig);
 
-        //Bottom navigation for day of the festival
-        bottomNavigationView = viewGroup.findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(0);
-
-        //TODO replace setText with a method that query Firebase database
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.day_1:
-                                day = 1;
-                                dayOfGig.setText("DAY 1");
-                                return true;
-                            case R.id.day_2:
-                                day = 2;
-                                dayOfGig.setText("DAY 2");
-                                return true;
-                            case R.id.day_3:
-                                day = 3;
-                                dayOfGig.setText("DAY 3");
-                                return true;
-                        }
-                        return false;
-                    }
-                }
-        );
-
-        //dayOfGig.setText("DAY " + String.valueOf(day));
+        dayOfGig.setText("DAY " + String.valueOf(day));
         stageOfGig.setText("STAGE " + String.valueOf(position + 1));
 
         container.addView(viewGroup);
