@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.halfside.R;
 import com.example.android.halfside.adapters.LineupRecyclerViewAdapter;
@@ -36,6 +37,7 @@ public class LineupFragment extends Fragment {
     private DatabaseReference artistsDatabaseReference;
     private FirebaseStorage artistsPhotoFirebaseStorage;
     private StorageReference artistPhotoStorageReference;
+    private ValueEventListener artistListener;
 
     private RecyclerView lineupRecyclerView;
     private GridLayoutManager layoutManager;
@@ -61,7 +63,20 @@ public class LineupFragment extends Fragment {
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
         artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
-        artistsDatabaseReference.addValueEventListener(new ValueEventListener() {
+        layoutManager = new GridLayoutManager(getContext(), 2);
+
+        lineupRecyclerView.setHasFixedSize(true);
+        lineupRecyclerView.setLayoutManager(layoutManager);
+
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //Add value event listener to the artists list
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 performingArtistList = new ArrayList<>();
@@ -77,18 +92,24 @@ public class LineupFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(getContext(), "Failed to load data!", Toast.LENGTH_SHORT).show();
             }
-        });
+        };
 
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        artistsDatabaseReference.addValueEventListener(valueEventListener);
 
-        lineupRecyclerView.setHasFixedSize(true);
-        lineupRecyclerView.setLayoutManager(layoutManager);
+        // Keep copy of value event listener so we can remove it when app stops
+        artistListener = valueEventListener;
 
-        return rootView;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
-
+        // Remove post value event listener
+        if (artistListener != null) {
+            artistsDatabaseReference.removeEventListener(artistListener);
+        }
+    }
 }
