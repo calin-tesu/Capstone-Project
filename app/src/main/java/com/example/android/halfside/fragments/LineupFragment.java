@@ -37,7 +37,7 @@ public class LineupFragment extends Fragment {
     private DatabaseReference artistsDatabaseReference;
     private FirebaseStorage artistsPhotoFirebaseStorage;
     private StorageReference artistPhotoStorageReference;
-    private ValueEventListener artistListener;
+    private ValueEventListener artistEventListener;
 
     private RecyclerView lineupRecyclerView;
     private GridLayoutManager layoutManager;
@@ -68,7 +68,6 @@ public class LineupFragment extends Fragment {
         artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
         layoutManager = new GridLayoutManager(getContext(), 2);
-
         lineupRecyclerView.setHasFixedSize(true);
         lineupRecyclerView.setLayoutManager(layoutManager);
 
@@ -80,14 +79,18 @@ public class LineupFragment extends Fragment {
         super.onStart();
 
         //Add value event listener to the artists list
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        artistEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 performingArtistList = new ArrayList<>();
 
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    PerformingArtist artist = childSnapshot.getValue(PerformingArtist.class);
-                    performingArtistList.add(artist);
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot daySnapshot : artistSnapshot.getChildren()) {
+                        for (DataSnapshot stageSnapshot : daySnapshot.getChildren()) {
+                            PerformingArtist artist = stageSnapshot.getValue(PerformingArtist.class);
+                            performingArtistList.add(artist);
+                        }
+                    }
                 }
 
                 lineupAdapter = new LineupRecyclerViewAdapter(performingArtistList);
@@ -100,11 +103,7 @@ public class LineupFragment extends Fragment {
             }
         };
 
-        artistsDatabaseReference.addValueEventListener(valueEventListener);
-
-        // Keep copy of value event listener so we can remove it when app stops
-        artistListener = valueEventListener;
-
+        artistsDatabaseReference.addValueEventListener(artistEventListener);
     }
 
     @Override
@@ -112,8 +111,8 @@ public class LineupFragment extends Fragment {
         super.onStop();
 
         // Remove post value event listener
-        if (artistListener != null) {
-            artistsDatabaseReference.removeEventListener(artistListener);
+        if (artistEventListener != null) {
+            artistsDatabaseReference.removeEventListener(artistEventListener);
         }
     }
 }

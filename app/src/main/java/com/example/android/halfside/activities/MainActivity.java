@@ -17,6 +17,8 @@ import com.example.android.halfside.fragments.LineupFragment;
 import com.example.android.halfside.fragments.ScheduleFragment;
 import com.example.android.halfside.models.ArtistUrls;
 import com.example.android.halfside.models.PerformingArtist;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity
          * Should be commented out after first use
          * TODO DELETE this method
          **/
-        //performingArtistList = generateArtistsList();
+        //List<PerformingArtist> performingArtistList = generateArtistsList();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity
     private List<PerformingArtist> generateArtistsList() {
         List<PerformingArtist> performingArtistList = new ArrayList<>();
 
-        PerformingArtist currentArtist = new PerformingArtist();
+        PerformingArtist currentArtist;
 
         //All artists will use the same urls
         ArtistUrls artistUrls = new ArtistUrls(
@@ -144,43 +146,45 @@ public class MainActivity extends AppCompatActivity
                 "https://www.facebook.com/bugmafia/",
                 "https://www.youtube.com/channel/UCJvN0Z19jneaLfztVoO0ZGg");
 
-        int counterArtist = 0;
+        int counterArtist = 1;
 
         for (int day = 1; day <= 3; day++) {
             //Performing start hour for every day
-            int timeOfPerforming = 16;
 
-            for (int i = 1; i <= 6; i++) {
-                currentArtist.setArtistName("Artist " + String.valueOf(counterArtist++));
-                currentArtist.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-                        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
-                        "voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint " +
-                        "occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-                currentArtist.setDayOfPerforming(day);
+            for (int stage = 1; stage <= 3; stage++) {
+                int timeOfPerforming = 10;
 
-                //Every artist will perform for 1 hour
-                currentArtist.setTimeOfPerforming(String.valueOf(timeOfPerforming) + ":00");
-                timeOfPerforming = timeOfPerforming + 1;
+                for (int i = 1; i <= 10; i++) {
+                    currentArtist = new PerformingArtist();
+                    currentArtist.setArtistName("Artist " + String.valueOf(counterArtist++));
+                    currentArtist.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                            "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
+                            "voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint " +
+                            "occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                    currentArtist.setDayOfPerforming(day);
 
-                /**
-                 *   For simplification the show will be held like:
-                 *   Day 1 - Stage 1
-                 *   Day 2 - Stage 2 etc..
-                 */
-                currentArtist.setStagePerforming(day);
+                    //Every artist will perform for 1 hour
+                    currentArtist.setTimeOfPerforming(String.valueOf(timeOfPerforming) + ":00");
+                    timeOfPerforming = timeOfPerforming + 1;
 
-                /**
-                 *  For simplification all artists will have the same
-                 *  photo, facebook, web page & Youtube account
-                 */
-                currentArtist.setArtistUrls(artistUrls);
+                    currentArtist.setStagePerforming(stage);
 
-                performingArtistList.add(currentArtist);
+                    /**
+                     *  For simplification all artists will have the same
+                     *  photo, facebook, web page & Youtube account
+                     */
+                    currentArtist.setArtistUrls(artistUrls);
 
-                //Save the artist to Firebase realtime database
-                //artistsDatabaseReference.push().setValue(currentArtist);
+                    performingArtistList.add(currentArtist);
+
+                    //Save the artist to Firebase realtime database
+                    FirebaseDatabase artistsFirebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
+                    //save the artist at path "artists/day-*/stage-* (ex. "artist/day-1/stage-1
+                    artistsDatabaseReference.child("day-" + String.valueOf(day)).child("stage-" + String.valueOf(stage)).push().setValue(currentArtist);
+                }
             }
         }
         return performingArtistList;
