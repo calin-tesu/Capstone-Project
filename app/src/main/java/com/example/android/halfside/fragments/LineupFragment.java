@@ -59,8 +59,12 @@ public class LineupFragment extends Fragment {
          //Initialize Firebase components
         artistsFirebaseDatabase = FirebaseDatabase.getInstance();
         artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
-
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
+        //Enable offline persistence
+        if (artistsFirebaseDatabase == null) {
+            artistsFirebaseDatabase.setPersistenceEnabled(true);
+        }
+        artistsDatabaseReference.keepSynced(true);
         artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
         layoutManager = new GridLayoutManager(getContext(), 2);
