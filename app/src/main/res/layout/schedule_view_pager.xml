@@ -6,7 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/schedule_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<TextView
         android:id="@+id/stage_of_gig"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,6 +26,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        tools:text="Day 1" />
+        tools:text="Day 1" />-->
 
 </LinearLayout>
