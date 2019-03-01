@@ -70,7 +70,6 @@ public class LineupRecyclerViewAdapter extends RecyclerView.Adapter<LineupRecycl
         @Override
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
-            //Toast.makeText(context, String.valueOf(performingArtistList.get(adapterPosition).getStagePerforming()), Toast.LENGTH_SHORT).show();
 
             PerformingArtist performingArtist = performingArtistList.get(adapterPosition);
             Intent intent = new Intent(context, ArtistDetailsActivity.class);
