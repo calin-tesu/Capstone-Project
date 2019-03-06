@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ScheduleFragment">
 
     <android.support.design.widget.TabLayout
@@ -17,25 +17,28 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 1"/>
+            android:text="STAGE 1" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 2"/>
+            android:text="STAGE 2" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 3"/>
+            android:text="STAGE 3" />
 
     </android.support.design.widget.TabLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/schedule_view_pager"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/schedule_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+    </android.support.v7.widget.RecyclerView>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -44,6 +47,6 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimaryDark"
         app:itemTextColor="@color/bottom_navigation_colors"
-        app:menu="@menu/activity_schedule_bottom_navigation"/>
+        app:menu="@menu/activity_schedule_bottom_navigation" />
 
 </LinearLayout>
