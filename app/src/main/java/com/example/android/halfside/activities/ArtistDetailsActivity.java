@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.halfside.R;
@@ -37,6 +38,8 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
     private ImageView youtubeBtn;
     private TextView addToMyLineup;
 
+    private ProgressBar loadingIndicator;
+
 
     // Firebase instance variables
     private FirebaseStorage artistsPhotoFirebaseStorage;
@@ -62,6 +65,8 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
         facebookBtn.setOnClickListener(this);
         youtubeBtn.setOnClickListener(this);
         addToMyLineup.setOnClickListener(this);
+
+        loadingIndicator = findViewById(R.id.loading_indicator);
 
         //Initialize Firebase components
         artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
@@ -132,7 +137,13 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
             this.downloadUrl = url;
         }
 
-        @Override
+       @Override
+       protected void onPreExecute() {
+           super.onPreExecute();
+           loadingIndicator.setVisibility(View.VISIBLE);
+       }
+
+       @Override
         protected Bitmap doInBackground(URL... urls) {
 
             try {
@@ -147,6 +158,8 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
+            loadingIndicator.setVisibility(View.INVISIBLE);
+
             artistPhoto.setImageBitmap(bitmap);
             artistName.setText(performingArtist.getArtistName());
             datePerforming.setText(String.valueOf(performingArtist.getDayOfPerforming()));
