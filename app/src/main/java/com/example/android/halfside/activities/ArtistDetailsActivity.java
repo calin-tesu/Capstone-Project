@@ -1,11 +1,13 @@
 package com.example.android.halfside.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ArtistDetailsActivity extends AppCompatActivity {
+public class ArtistDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private PerformingArtist performingArtist;
 
@@ -28,9 +30,13 @@ public class ArtistDetailsActivity extends AppCompatActivity {
     private TextView artistName;
     private TextView datePerforming;
     private TextView stagePerforming;
-    private TextView addToMyLineup;
-    //TODO declare button images for external links
     private TextView artistDescription;
+
+    private ImageView webpageBtn;
+    private ImageView facebookBtn;
+    private ImageView youtubeBtn;
+    private TextView addToMyLineup;
+
 
     // Firebase instance variables
     private FirebaseStorage artistsPhotoFirebaseStorage;
@@ -45,8 +51,17 @@ public class ArtistDetailsActivity extends AppCompatActivity {
         artistName = findViewById(R.id.artist_name);
         datePerforming = findViewById(R.id.date_performing);
         stagePerforming = findViewById(R.id.stage_performing);
-        addToMyLineup = findViewById(R.id.add_to_my_lineup_btn);
         artistDescription = findViewById(R.id.artist_description);
+
+        webpageBtn = findViewById(R.id.webpage_btn);
+        facebookBtn = findViewById(R.id.facebook_btn);
+        youtubeBtn = findViewById(R.id.youtube_btn);
+        addToMyLineup = findViewById(R.id.add_to_my_lineup_btn);
+
+        webpageBtn.setOnClickListener(this);
+        facebookBtn.setOnClickListener(this);
+        youtubeBtn.setOnClickListener(this);
+        addToMyLineup.setOnClickListener(this);
 
         //Initialize Firebase components
         artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
@@ -74,7 +89,40 @@ public class ArtistDetailsActivity extends AppCompatActivity {
 
     }
 
-    //Download the artist photo from Firebase Storage
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.webpage_btn:
+                lunchExternalLinks(performingArtist.getArtistUrls().getWebUrl());
+                break;
+            case R.id.facebook_btn:
+                lunchExternalLinks(performingArtist.getArtistUrls().getFacebookUrl());
+
+                //TODO lunch Facebook in app not webpage
+                //https://stackoverflow.com/a/24547437/9209228
+                //https://stackoverflow.com/a/34564284/9209228
+                break;
+            case R.id.youtube_btn:
+                lunchExternalLinks(performingArtist.getArtistUrls().getYoutubeUrl());
+                break;
+            case R.id.add_to_my_lineup_btn:
+                //TODO fix Add to my lineup button
+        }
+    }
+
+    private void lunchExternalLinks(String artistUrl) {
+        Uri uri = Uri.parse(artistUrl);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        // Verify that the intent will resolve to an activity
+        if (intent.resolveActivity(getApplication().getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+   /*
+   * Download the artist photo from Firebase Storage using an
+   * AsyncTask to meet the requirements for the Capstone Project
+   * */
     public class DownloadArtistPhoto extends AsyncTask<URL, Void, Bitmap> {
 
         URL downloadUrl;
@@ -86,7 +134,6 @@ public class ArtistDetailsActivity extends AppCompatActivity {
 
         @Override
         protected Bitmap doInBackground(URL... urls) {
-            //String url = downloadUrl;
 
             try {
 
