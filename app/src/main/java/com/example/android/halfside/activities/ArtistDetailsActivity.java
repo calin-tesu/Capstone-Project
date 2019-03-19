@@ -162,8 +162,8 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
 
             artistPhoto.setImageBitmap(bitmap);
             artistName.setText(performingArtist.getArtistName());
-            datePerforming.setText(String.valueOf(performingArtist.getDayOfPerforming()));
-            stagePerforming.setText(String.valueOf(performingArtist.getStagePerforming()));
+            datePerforming.setText("Day " + String.valueOf(performingArtist.getDayOfPerforming()));
+            stagePerforming.setText("Stage " + String.valueOf(performingArtist.getStagePerforming()));
             artistDescription.setText(performingArtist.getDescription());
         }
     }
