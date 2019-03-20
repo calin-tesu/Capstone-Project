@@ -4,16 +4,16 @@
     <item
         android:id="@+id/day_1"
         android:title="Day 1"
-        android:icon="@drawable/day_1"
+        android:icon="@drawable/ic_day_1"
         android:enabled="true" />
     <item
         android:id="@+id/day_2"
         android:title="Day 2"
-        android:icon="@drawable/day_2"
+        android:icon="@drawable/ic_day_2"
         android:enabled="true"/>
     <item
         android:id="@+id/day_3"
         android:title="Day 3"
-        android:icon="@drawable/day_3"
+        android:icon="@drawable/ic_day_3"
         android:enabled="true"/>
 </menu>
