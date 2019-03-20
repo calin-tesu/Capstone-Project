@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/side_nav"
     tools:context=".activities.ArtistDetailsActivity">
 
     <FrameLayout
@@ -130,7 +131,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/colorAccent"
+                android:background="@android:color/black"
                 android:padding="8dp"
                 android:text="ADD TO MY LINEUP"
                 android:textColor="@android:color/white"

@@ -41,9 +41,9 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
 
         //Alternate background color of the RecyclerView items
         if (position % 2 == 0) {
-            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#f1f8e9"));
+            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#CDE257"));
         } else {
-            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#f9fbe7"));
+            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#81C472"));
         }
     }
 
