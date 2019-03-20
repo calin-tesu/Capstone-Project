@@ -18,7 +18,6 @@
         android:layout_gravity="bottom|center"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:textSize="24dp"
-        android:text="BUG Mafia"/>
+        android:textSize="24dp" />
 
 </FrameLayout>
