@@ -46,7 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimaryDark"
-        app:itemTextColor="@color/bottom_navigation_colors"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="56dp"
+        app:itemIconTint="@color/bottom_navigation_colors"
         app:menu="@menu/activity_schedule_bottom_navigation" />
 
 </LinearLayout>
