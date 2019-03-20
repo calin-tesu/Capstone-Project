@@ -43,7 +43,7 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
         if (position % 2 == 0) {
             scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#CDE257"));
         } else {
-            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#81C472"));
+            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#D2E756"));
         }
     }
 
