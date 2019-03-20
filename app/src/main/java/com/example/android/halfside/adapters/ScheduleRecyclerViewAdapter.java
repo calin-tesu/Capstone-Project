@@ -1,5 +1,6 @@
 package com.example.android.halfside.adapters;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,13 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
     public void onBindViewHolder(@NonNull ScheduleViewHolder scheduleViewHolder, int position) {
         scheduleViewHolder.startTime.setText(performingArtistList.get(position).getTimeOfPerforming());
         scheduleViewHolder.artistName.setText(performingArtistList.get(position).getArtistName());
+
+        //Alternate background color of the RecyclerView items
+        if (position % 2 == 0) {
+            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#f1f8e9"));
+        } else {
+            scheduleViewHolder.itemView.setBackgroundColor(Color.parseColor("#f9fbe7"));
+        }
     }
 
     @Override
