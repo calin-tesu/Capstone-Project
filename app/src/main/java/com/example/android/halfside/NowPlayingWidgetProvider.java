@@ -22,6 +22,8 @@ import java.util.Calendar;
  */
 public class NowPlayingWidgetProvider extends AppWidgetProvider {
 
+    static String artistName;
+
     // Firebase instance variables
     private static FirebaseDatabase artistsFirebaseDatabase;
     private static DatabaseReference artistsDatabaseReference;
@@ -38,7 +40,7 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.now_playing_widget_provider);
         views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("DD Mmm YYYY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH");
         //Get the current time and date and format it as above
         String currentDay = dateFormat.format(Calendar.getInstance().getTime());
@@ -70,7 +72,6 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
     }
 
     private static String queryFirebaseDatabase(String day, String time) {
-        final PerformingArtist[] performingArtist = new PerformingArtist[1];
 
         Query myQuery = artistsDatabaseReference
                 .child(day)
@@ -78,10 +79,13 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
                 .orderByChild("timeOfPerforming")
                 .equalTo(time);
 
-        myQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        myQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                performingArtist[0] = dataSnapshot.getValue(PerformingArtist.class);
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    PerformingArtist performingArtist = childSnapshot.getValue(PerformingArtist.class);
+                    artistName = performingArtist.getArtistName();
+                }
             }
 
             @Override
@@ -90,7 +94,12 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
             }
         });
 
-        return performingArtist[0].getArtistName();
+        //If no artist was in Firebase database for the current time the #artistName will be null
+        if (artistName != null) {
+            return artistName;
+        } else {
+            return "No one playing!";
+        }
     }
 
     @Override
