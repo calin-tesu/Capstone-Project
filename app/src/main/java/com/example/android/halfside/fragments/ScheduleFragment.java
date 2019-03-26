@@ -36,8 +36,6 @@ public class ScheduleFragment extends Fragment {
     private int dayOfFestival;
     private int stageOfFestival;
 
-    // Firebase instance variables
-    private FirebaseDatabase artistsFirebaseDatabase;
     private DatabaseReference artistsDatabaseReference;
 
     private RecyclerView scheduleRecyclerView;
@@ -57,7 +55,8 @@ public class ScheduleFragment extends Fragment {
         stageOfFestival = 1;
 
         //Initialize Firebase components
-        artistsFirebaseDatabase = FirebaseDatabase.getInstance();
+        // Firebase instance variables
+        FirebaseDatabase artistsFirebaseDatabase = FirebaseDatabase.getInstance();
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
 
         scheduleRecyclerView = rootView.findViewById(R.id.schedule_rv);
@@ -124,7 +123,7 @@ public class ScheduleFragment extends Fragment {
         return rootView;
     }
 
-    public void queryFirebaseArtists() {
+    private void queryFirebaseArtists() {
         Query myQuery = artistsDatabaseReference
                 .child("day-" + String.valueOf(dayOfFestival))
                 .child("stage-" + String.valueOf(stageOfFestival))

@@ -14,4 +14,7 @@
     <string name="stage_1">STAGE 1</string>
     <string name="stage_2">STAGE 2</string>
     <string name="stage_3">STAGE 3</string>
+    <string name="day_1">Day 1</string>
+    <string name="day_2">Day 2</string>
+    <string name="day_3">Day 3</string>
 </resources>

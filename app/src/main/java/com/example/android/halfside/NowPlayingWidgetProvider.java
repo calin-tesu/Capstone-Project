@@ -25,17 +25,16 @@ import java.util.Calendar;
  */
 public class NowPlayingWidgetProvider extends AppWidgetProvider {
 
-    static String artistName;
+    private static String artistName;
 
-    // Firebase instance variables
-    private static FirebaseDatabase artistsFirebaseDatabase;
     private static DatabaseReference artistsDatabaseReference;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         //Initialize Firebase components
-        artistsFirebaseDatabase = FirebaseDatabase.getInstance();
+        // Firebase instance variables
+        FirebaseDatabase artistsFirebaseDatabase = FirebaseDatabase.getInstance();
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
 
         CharSequence widgetText = context.getString(R.string.app_name);

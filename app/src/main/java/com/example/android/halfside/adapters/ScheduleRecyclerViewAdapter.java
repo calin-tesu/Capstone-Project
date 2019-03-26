@@ -58,7 +58,7 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
         TextView startTime;
         TextView artistName;
 
-        public ScheduleViewHolder(@NonNull View itemView) {
+        ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             startTime = itemView.findViewById(R.id.start_time);
             artistName = itemView.findViewById(R.id.artist_name);

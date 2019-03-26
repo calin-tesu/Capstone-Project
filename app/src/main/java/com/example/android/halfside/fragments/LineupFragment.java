@@ -19,8 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +28,12 @@ import java.util.List;
  */
 public class LineupFragment extends Fragment {
 
-    List<PerformingArtist> performingArtistList;
+    private List<PerformingArtist> performingArtistList;
 
-    // Firebase instance variables
-    private FirebaseDatabase artistsFirebaseDatabase;
     private DatabaseReference artistsDatabaseReference;
-    private FirebaseStorage artistsPhotoFirebaseStorage;
-    private StorageReference artistPhotoStorageReference;
     private ValueEventListener artistEventListener;
 
     private RecyclerView lineupRecyclerView;
-    private GridLayoutManager layoutManager;
     private LineupRecyclerViewAdapter lineupAdapter;
 
 
@@ -57,17 +50,16 @@ public class LineupFragment extends Fragment {
         lineupRecyclerView = rootView.findViewById(R.id.lineup_rv);
 
          //Initialize Firebase components
-        artistsFirebaseDatabase = FirebaseDatabase.getInstance();
-        artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
+        // Firebase instance variables
+        FirebaseDatabase artistsFirebaseDatabase = FirebaseDatabase.getInstance();
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
         //Enable offline persistence
         if (artistsFirebaseDatabase == null) {
             artistsFirebaseDatabase.setPersistenceEnabled(true);
         }
         artistsDatabaseReference.keepSynced(true);
-        artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         lineupRecyclerView.setHasFixedSize(true);
         lineupRecyclerView.setLayoutManager(layoutManager);
 

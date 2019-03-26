@@ -86,11 +86,11 @@ public class LineupRecyclerViewAdapter extends RecyclerView.Adapter<LineupRecycl
 
     public class LineupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final ImageView artistPhoto;
+        final ImageView artistPhoto;
 
-        public final TextView artistName;
+        final TextView artistName;
 
-        public LineupViewHolder(@NonNull View itemView) {
+        LineupViewHolder(@NonNull View itemView) {
             super(itemView);
             artistPhoto = itemView.findViewById(R.id.artist_photo);
             artistName = itemView.findViewById(R.id.artist_name);

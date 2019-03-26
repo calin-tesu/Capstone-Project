@@ -35,17 +35,8 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
     private TextView stagePerforming;
     private TextView artistDescription;
 
-    private ImageView webpageBtn;
-    private ImageView facebookBtn;
-    private ImageView youtubeBtn;
-    private TextView addToMyLineup;
-
     private ProgressBar loadingIndicator;
 
-
-    // Firebase instance variables
-    private FirebaseStorage artistsPhotoFirebaseStorage;
-    private StorageReference artistPhotoStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +49,10 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
         stagePerforming = findViewById(R.id.stage_performing);
         artistDescription = findViewById(R.id.artist_description);
 
-        webpageBtn = findViewById(R.id.webpage_btn);
-        facebookBtn = findViewById(R.id.facebook_btn);
-        youtubeBtn = findViewById(R.id.youtube_btn);
-        addToMyLineup = findViewById(R.id.add_to_my_lineup_btn);
+        ImageView webpageBtn = findViewById(R.id.webpage_btn);
+        ImageView facebookBtn = findViewById(R.id.facebook_btn);
+        ImageView youtubeBtn = findViewById(R.id.youtube_btn);
+        TextView addToMyLineup = findViewById(R.id.add_to_my_lineup_btn);
 
         webpageBtn.setOnClickListener(this);
         facebookBtn.setOnClickListener(this);
@@ -71,8 +62,9 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
         loadingIndicator = findViewById(R.id.loading_indicator);
 
         //Initialize Firebase components
-        artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
-        artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
+        // Firebase instance variables
+        FirebaseStorage artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
+        StorageReference artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
         String jsonArtist = getIntent().getStringExtra("performingArtist");
         Gson gson = new Gson();
@@ -131,7 +123,7 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
    * Download the artist photo from Firebase Storage using an
    * AsyncTask to meet the requirements for the Capstone Project
    * */
-    public class DownloadArtistPhoto extends AsyncTask<URL, Void, Bitmap> {
+    private class DownloadArtistPhoto extends AsyncTask<URL, Void, Bitmap> {
 
         URL downloadUrl;
         Bitmap bitmap;

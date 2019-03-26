@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/day_1"
-        android:title="Day 1"
+        android:title="@string/day_1"
         android:icon="@drawable/ic_day_1"
         android:enabled="true" />
     <item
         android:id="@+id/day_2"
-        android:title="Day 2"
+        android:title="@string/day_2"
         android:icon="@drawable/ic_day_2"
         android:enabled="true"/>
     <item
         android:id="@+id/day_3"
-        android:title="Day 3"
+        android:title="@string/day_3"
         android:icon="@drawable/ic_day_3"
         android:enabled="true"/>
 </menu>
