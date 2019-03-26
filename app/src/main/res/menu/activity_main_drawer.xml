@@ -6,22 +6,22 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_lineup"
-            android:title="Lineup" />
+            android:title="@string/lineup" />
         <item
             android:id="@+id/nav_schedule"
-            android:title="Schedule" />
+            android:title="@string/schedule" />
         <item
             android:id="@+id/nav_my_lineup"
-            android:title="My lineup" />
+            android:title="@string/my_lineup" />
         <item
             android:id="@+id/nav_food_drinks"
-            android:title="Food &amp; Drinks" />
+            android:title="@string/food_amp_drinks" />
         <item
             android:id="@+id/nav_buy_tickets"
-            android:title="Buy tickets" />
+            android:title="@string/buy_tickets" />
         <item
             android:id="@+id/nav_about_festival"
-            android:title="About" />
+            android:title="@string/about" />
     </group>
 
 </menu>
