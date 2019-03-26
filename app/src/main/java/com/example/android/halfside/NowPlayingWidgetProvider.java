@@ -38,7 +38,7 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
         artistsFirebaseDatabase = FirebaseDatabase.getInstance();
         artistsDatabaseReference = artistsFirebaseDatabase.getReference("artists");
 
-        CharSequence widgetText = context.getString(R.string.appwidget_title);
+        CharSequence widgetText = context.getString(R.string.app_name);
         // Construct the RemoteViews object
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.now_playing_widget_provider);
         views.setTextViewText(R.id.appwidget_text, widgetText);
@@ -70,7 +70,7 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
                 views.setTextViewText(R.id.artist_name, artistName);
                 break;
             default:
-                views.setTextViewText(R.id.artist_name, "NO SHOW!!");
+                views.setTextViewText(R.id.artist_name, context.getString(R.string.no_one_playing));
 
 
         }
@@ -98,7 +98,6 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //TODO do something
             }
         });
 

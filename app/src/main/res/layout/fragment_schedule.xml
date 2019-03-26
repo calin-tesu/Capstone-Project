@@ -17,17 +17,17 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 1" />
+            android:text="@string/stage_1" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 2" />
+            android:text="@string/stage_2" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STAGE 3" />
+            android:text="@string/stage_3" />
 
     </android.support.design.widget.TabLayout>
 

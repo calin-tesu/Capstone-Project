@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_title"
+        android:contentDescription="@string/app_name"
         android:gravity="center"
-        android:text="@string/appwidget_title"
+        android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="34sp"
         android:textStyle="bold|italic" />
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STAGE 1"
+        android:text="@string/stage_1"
         android:textColor="@android:color/white"
         android:textSize="34sp" />
 
