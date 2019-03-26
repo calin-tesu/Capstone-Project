@@ -1,11 +1,14 @@
 package com.example.android.halfside;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
+import com.example.android.halfside.activities.MainActivity;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +42,11 @@ public class NowPlayingWidgetProvider extends AppWidgetProvider {
         // Construct the RemoteViews object
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.now_playing_widget_provider);
         views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        // Create an Intent to launch ScheduleFragment
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.artist_name, pendingIntent);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH");

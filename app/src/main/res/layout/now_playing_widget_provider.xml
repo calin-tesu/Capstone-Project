@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="#09C"
+    android:background="@android:color/holo_green_dark"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/widget_margin">
@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="#09C"
         android:contentDescription="@string/appwidget_title"
         android:gravity="center"
         android:text="@string/appwidget_title"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/white"
         android:textSize="34sp"
         android:textStyle="bold|italic" />
 
@@ -25,36 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/white"
         android:textSize="34sp"
-        tools:text="Artist Jon Doe"/>
+        tools:text="Artist Jon Doe" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="#09C"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STAGE 1"
-            android:textColor="#ffffff"
-            android:textSize="34sp" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="#09C"
-            android:src="@drawable/ic_arrow_forward_white_24dp" />
-    </LinearLayout>
+        android:text="STAGE 1"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
 
 </LinearLayout>
