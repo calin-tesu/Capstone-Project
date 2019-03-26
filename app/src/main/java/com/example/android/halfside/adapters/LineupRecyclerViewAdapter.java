@@ -32,8 +32,6 @@ public class LineupRecyclerViewAdapter extends RecyclerView.Adapter<LineupRecycl
 
     private Context context;
 
-    // Firebase instance variables
-    private FirebaseStorage artistsPhotoFirebaseStorage;
     private StorageReference artistPhotoStorageReference;
 
     // Provide a suitable constructor
@@ -49,7 +47,8 @@ public class LineupRecyclerViewAdapter extends RecyclerView.Adapter<LineupRecycl
         View view = inflater.inflate(R.layout.lineup_grid_item, viewGroup, false);
 
         //Initialize Firebase components
-        artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
+        // Firebase instance variables
+        FirebaseStorage artistsPhotoFirebaseStorage = FirebaseStorage.getInstance();
         artistPhotoStorageReference = artistsPhotoFirebaseStorage.getReference("artists_photo");
 
         return new LineupViewHolder(view);

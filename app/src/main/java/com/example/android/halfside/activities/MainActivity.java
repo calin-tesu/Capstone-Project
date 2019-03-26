@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.double_click_to_exit), Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
@@ -97,17 +97,20 @@ public class MainActivity extends AppCompatActivity
             displaySelectedFragment(fragment);
 
         } else if (navigationDrawerId == R.id.nav_my_lineup) {
-            //TODO to be done
+            Toast.makeText(this, getString(R.string.under_construction), Toast.LENGTH_SHORT).show();
 
         } else if (navigationDrawerId == R.id.nav_food_drinks) {
+            Toast.makeText(this, getString(R.string.under_construction), Toast.LENGTH_SHORT).show();
 
         } else if (navigationDrawerId == R.id.nav_buy_tickets) {
+            Toast.makeText(this, getString(R.string.under_construction), Toast.LENGTH_SHORT).show();
 
         } else if (navigationDrawerId == R.id.nav_about_festival) {
+            Toast.makeText(this, getString(R.string.under_construction), Toast.LENGTH_SHORT).show();
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

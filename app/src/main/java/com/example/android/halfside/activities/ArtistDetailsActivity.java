@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.halfside.Constants;
 import com.example.android.halfside.R;
 import com.example.android.halfside.models.PerformingArtist;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -112,6 +114,7 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.add_to_my_lineup_btn:
                 //TODO fix Add to my lineup button
+                Toast.makeText(this, getString(R.string.under_construction), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -162,9 +165,20 @@ public class ArtistDetailsActivity extends AppCompatActivity implements View.OnC
 
             artistPhoto.setImageBitmap(bitmap);
             artistName.setText(performingArtist.getArtistName());
-            datePerforming.setText("Day " + String.valueOf(performingArtist.getDayOfPerforming()));
-            stagePerforming.setText("Stage " + String.valueOf(performingArtist.getStagePerforming()));
+            stagePerforming.setText(String.format("%s %s", getString(R.string.stage), String.valueOf(performingArtist.getStagePerforming())));
             artistDescription.setText(performingArtist.getDescription());
+
+            switch (performingArtist.getDayOfPerforming()) {
+                case 1:
+                    datePerforming.setText(Constants.FIRST_DAY_OF_FESTIVAL);
+                    break;
+                case 2:
+                    datePerforming.setText(Constants.SECOND_DAY_OF_FESTIVAL);
+                    break;
+                case 3:
+                    datePerforming.setText(Constants.THIRD_DAY_OF_FESTIVAL);
+                    break;
+            }
         }
     }
 }
