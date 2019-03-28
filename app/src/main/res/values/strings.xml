@@ -20,4 +20,8 @@
     <string name="food_amp_drinks"><![CDATA[Food & Drinks]]></string>
     <string name="buy_tickets">Buy tickets</string>
     <string name="about">About</string>
+    <string name="artist_photo">Artist photo</string>
+    <string name="web_page_button">Go to artist web page button</string>
+    <string name="facebook_page_button">Go to artist Facebook page button</string>
+    <string name="youtube_channel_button">Go to artist Youtube channel button</string>
 </resources>

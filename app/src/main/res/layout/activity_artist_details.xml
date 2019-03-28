@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="TODO" android:cropToPadding="true"
+            android:contentDescription="@string/artist_photo"
+            android:cropToPadding="true"
             android:scaleType="centerInside"
             tools:src="@drawable/generic_photo" />
 
@@ -44,7 +45,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <TextView
             android:id="@+id/date_performing"
@@ -59,7 +61,7 @@
             android:id="@+id/stage_performing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="end"
             android:textColor="@android:color/black"
             android:textSize="26sp"
             app:fontFamily="@font/anton"
@@ -97,7 +99,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="TODO" android:src="@drawable/ic_webpage" />
+            android:contentDescription="@string/web_page_button"
+            android:src="@drawable/ic_webpage" />
 
         <ImageView
             android:id="@+id/facebook_btn"
@@ -106,7 +109,8 @@
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="TODO" android:src="@drawable/ic_facebook" />
+            android:contentDescription="@string/facebook_page_button"
+            android:src="@drawable/ic_facebook" />
 
         <ImageView
             android:id="@+id/youtube_btn"
@@ -115,18 +119,19 @@
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="TODO" android:src="@drawable/ic_youtube" />
+            android:contentDescription="@string/youtube_channel_button"
+            android:src="@drawable/ic_youtube" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:gravity="end">
 
             <TextView
                 android:id="@+id/add_to_my_lineup_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
